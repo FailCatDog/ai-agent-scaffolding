@@ -6,6 +6,7 @@ import cn.hgy.ai.domain.agent.model.valobj.AiAgentConfigTableVO;
 import cn.hgy.ai.domain.agent.model.valobj.AiAgentRegisterVO;
 import cn.hgy.ai.domain.agent.service.IArmoryService;
 import cn.hgy.ai.domain.agent.service.armory.factory.DefaultArmoryFactory;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,10 @@ import java.util.List;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ArmoryService implements IArmoryService {
+
+    private final DefaultArmoryFactory defaultArmoryFactory;
 
     @Override
     public void acceptArmoryAgents(List<AiAgentConfigTableVO> tables) throws Exception {
