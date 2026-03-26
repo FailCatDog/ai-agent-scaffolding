@@ -6,6 +6,7 @@ import cn.hgy.ai.domain.agent.model.valobj.AiAgentRegisterVO;
 import cn.hgy.ai.domain.agent.service.armory.node.RootNode;
 import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
 import lombok.*;
+import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,11 @@ public class DefaultArmoryFactory {
          * LLM api
          */
         private OpenAiApi openAiApi;
+
+        /**
+         * LLM chatModel
+         */
+        private ChatModel chatModel;
 
         private Map<String, Object> dataObjects = new HashMap<>();
 
