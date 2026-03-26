@@ -5,6 +5,7 @@ import cn.hgy.ai.domain.agent.model.entity.ArmoryCommandEntity;
 import cn.hgy.ai.domain.agent.model.valobj.AiAgentRegisterVO;
 import cn.hgy.ai.domain.agent.service.armory.node.RootNode;
 import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
+import com.google.adk.agents.LlmAgent;
 import lombok.*;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.openai.api.OpenAiApi;
@@ -49,6 +50,11 @@ public class DefaultArmoryFactory {
          * LLM chatModel
          */
         private ChatModel chatModel;
+
+        /**
+         * 已构建的 LlmAgent 集合，key 为 Agent 名称
+         */
+        private Map<String, LlmAgent> agentGroup = new HashMap<>();
 
         private Map<String, Object> dataObjects = new HashMap<>();
 
