@@ -1,4 +1,4 @@
-package cn.bugstack.ai.test.api.agent;
+package cn.hgy.ai.test.api.agent;
 import com.google.adk.agents.LlmAgent;
 import com.google.adk.agents.LoopAgent;
 import com.google.adk.agents.SequentialAgent;
@@ -29,7 +29,7 @@ public class LoopAgentTest {
     private static final String STATE_CURRENT_DOC = "current_document";
     private static final String STATE_CRITICISM = "criticism";
 
-   /* @Annotations.Schema(
+    @Annotations.Schema(
             description =
                     "Call this function ONLY when the critique indicates no further changes are needed,"
                             + " signaling the iterative process should end.")
@@ -37,16 +37,6 @@ public class LoopAgentTest {
         System.out.printf("[Tool Call] exitLoop triggered by %s \n", toolContext.agentName());
         toolContext.actions().setEscalate(true);
 
-        //  Return empty dict as tools should typically return JSON-serializable output
-
-        return Map.of();
-    }*/
-
-    @Annotations.Schema(
-            description =
-                    "Call this function ONLY when the critique indicates no further changes are needed,"
-                            + " signaling the iterative process should end.")
-    public static Map<String, Object> exitLoop() {
         //  Return empty dict as tools should typically return JSON-serializable output
 
         return Map.of();
@@ -186,6 +176,10 @@ public class LoopAgentTest {
                         System.out.println(event.stringifyContent());
                     }
                 });
+
+        // loop(llmagent01、llmagent02、llmagent03)、sequential(llmagent01、loop)
+        // loop(llmagent01、llmagent02、llmagent03)、parallel(llmagent04、llmagent05)、sequential(llmagent01、loop、parallel01、llmagent02)
+        // loop(llmagent01、llmagent02、llmagent03)、parallel(llmagent04、llmagent05)、sequential(llmagent01、loop、parallel01、llmagent02)、loop(sequential01)
     }
 
 }

@@ -1,4 +1,4 @@
-package cn.bugstack.ai.test.api.model;
+package cn.hgy.ai.test.api.model;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatModel;
@@ -9,7 +9,7 @@ import org.springframework.ai.openai.api.OpenAiApi;
 /**
  * Spring AI Test
  * 文档：<a href="https://docs.spring.io/spring-ai/reference/1.0/api/advisors.html">spring ai</a>
- * @author HGY 2823480928@qq.com @黄光宇
+ * @author xiaofuge bugstack.cn @小傅哥
  * 2025/12/14 09:15
  */
 @Slf4j

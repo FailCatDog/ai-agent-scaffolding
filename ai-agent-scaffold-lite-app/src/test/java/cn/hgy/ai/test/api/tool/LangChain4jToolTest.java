@@ -1,4 +1,4 @@
-package cn.bugstack.ai.test.api.tool;
+package cn.hgy.ai.test.api.tool;
 
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.openai.OpenAiChatModel;
@@ -16,7 +16,7 @@ import java.time.Duration;
  * 文档：<a href="https://docs.langchain4j.info/">langchain4j</a>
  * 案例：<a href="https://github.com/langchain4j/langchain4j-examples">langchain4j-examples</a>
  *
- * @author HGY 2823480928@qq.com @黄光宇
+ * @author xiaofuge bugstack.cn @小傅哥
  * 2025/12/14 09:20
  */
 @Slf4j
