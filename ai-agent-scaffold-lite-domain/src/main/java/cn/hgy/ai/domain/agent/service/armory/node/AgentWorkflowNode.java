@@ -30,6 +30,8 @@ public class AgentWorkflowNode extends AbstractArmorySupport {
     private ParallelAgentNode parallelAgentNode;
     @Resource
     private SequentialAgentNode sequentialAgentNode;
+    @Resource
+    private RunnerNode runnerNode;
 
     @Override
     protected AiAgentRegisterVO doApply(ArmoryCommandEntity requestParameter, DefaultArmoryFactory.DynamicContext dynamicContext) throws Exception {
@@ -39,7 +41,7 @@ public class AgentWorkflowNode extends AbstractArmorySupport {
         List<AiAgentConfigTableVO.Module.AgentWorkflow> agentWorkflows = aiAgentConfigTableVO.getModule().getAgentWorkflows();
 
         if (null == agentWorkflows || agentWorkflows.isEmpty()) {
-            throw new RuntimeException("agentWorkflows is null");
+            return router(requestParameter, dynamicContext);
         }
 
         // 将工作流配置列表写入上下文，子工作流节点按顺序消费
@@ -52,6 +54,11 @@ public class AgentWorkflowNode extends AbstractArmorySupport {
     public StrategyHandler<ArmoryCommandEntity, DefaultArmoryFactory.DynamicContext, AiAgentRegisterVO> get(ArmoryCommandEntity requestParameter, DefaultArmoryFactory.DynamicContext dynamicContext) throws Exception {
 
         List<AiAgentConfigTableVO.Module.AgentWorkflow> agentWorkflows = dynamicContext.getAgentWorkflows();
+
+        if (null == agentWorkflows || agentWorkflows.isEmpty()) {
+            return runnerNode;
+        }
+
         AiAgentConfigTableVO.Module.AgentWorkflow agentWorkflow = agentWorkflows.get(0);
 
         // 根据工作流类型枚举，路由到对应的子工作流节点

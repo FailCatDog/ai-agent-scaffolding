@@ -53,9 +53,6 @@ public class SequentialAgentNode extends AbstractArmorySupport {
         // 将构建好的 SequentialAgent 也存入 agentGroup，后续工作流可将其作为子 Agent 引用
         dynamicContext.getAgentGroup().put(agentWorkflow.getName(), sequentialAgent);
 
-        // 设置到上下文对象中
-        dynamicContext.setSequentialAgent(sequentialAgent);
-
         // 将最终编排好的 SequentialAgent 动态注册到 Spring 容器，供外部通过 beanName 注入使用
         registerBean(agentWorkflow.getName(), SequentialAgent.class, sequentialAgent);
 

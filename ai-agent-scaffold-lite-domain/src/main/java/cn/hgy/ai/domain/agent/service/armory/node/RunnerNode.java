@@ -6,9 +6,14 @@ import cn.hgy.ai.domain.agent.model.valobj.AiAgentRegisterVO;
 import cn.hgy.ai.domain.agent.service.armory.AbstractArmorySupport;
 import cn.hgy.ai.domain.agent.service.armory.factory.DefaultArmoryFactory;
 import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
+import cn.hgy.ai.types.enums.ResponseCode;
+import cn.hgy.ai.types.exception.AppException;
+import com.google.adk.agents.BaseAgent;
 import com.google.adk.agents.SequentialAgent;
 import com.google.adk.runner.InMemoryRunner;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,10 +36,7 @@ public class RunnerNode extends AbstractArmorySupport {
         String agentName = agent.getAgentName();
         String agentDesc = agent.getAgentDesc();
 
-        // 获取上下文对象
-        SequentialAgent sequentialAgent = dynamicContext.getSequentialAgent();
-
-        InMemoryRunner runner = new InMemoryRunner(sequentialAgent, appName);
+        InMemoryRunner runner = getRunner(dynamicContext, aiAgentConfigTableVO, appName);
 
         AiAgentRegisterVO aiAgentRegisterVO = AiAgentRegisterVO.builder()
                 .appName(appName)
@@ -48,6 +50,21 @@ public class RunnerNode extends AbstractArmorySupport {
         registerBean(agentId, AiAgentRegisterVO.class, aiAgentRegisterVO);
 
         return aiAgentRegisterVO;
+    }
+
+    @NotNull
+    private static InMemoryRunner getRunner(DefaultArmoryFactory.DynamicContext dynamicContext, AiAgentConfigTableVO aiAgentConfigTableVO, String appName) {
+        AiAgentConfigTableVO.Module.Runner runnerConfig = aiAgentConfigTableVO.getModule().getRunner();
+
+        String agentName = runnerConfig.getAgentName();
+        if (StringUtils.isBlank(agentName)) {
+            log.error("runner.agentName is null");
+            throw new AppException(ResponseCode.ILLEGAL_PARAMETER.getCode(), ResponseCode.ILLEGAL_PARAMETER.getInfo());
+        }
+
+        BaseAgent baseAgent = dynamicContext.getAgentGroup().get(agentName);
+
+        return new InMemoryRunner(baseAgent, appName);
     }
 
     @Override

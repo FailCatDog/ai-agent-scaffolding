@@ -72,6 +72,8 @@ public class AiAgentConfigTableVO {
          */
         private List<AgentWorkflow> agentWorkflows;
 
+        private Runner runner;
+
         @Data
         public static class AiApi {
             /**
@@ -237,6 +239,11 @@ public class AiAgentConfigTableVO {
              */
             private Integer maxIterations = 3;
 
+        }
+
+        @Data
+        public static class Runner {
+            private String agentName;
         }
     }
 

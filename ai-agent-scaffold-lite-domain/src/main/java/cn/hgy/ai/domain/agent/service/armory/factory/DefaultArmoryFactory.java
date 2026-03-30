@@ -67,10 +67,10 @@ public class DefaultArmoryFactory {
          */
         private Map<String, Object> dataObjects = new HashMap<>();
 
-        /**
-         * 当做最后一个智能体节点
-         */
-        private SequentialAgent sequentialAgent;
+//        /**
+//         * 当做最后一个智能体节点
+//         */
+//        private SequentialAgent sequentialAgent;
 
         public List<BaseAgent> queryAgentList(List<String> agentNames) {
             if (agentNames == null || agentNames.isEmpty() || agentGroup == null) {
